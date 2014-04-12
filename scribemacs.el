@@ -92,6 +92,7 @@
 
 ;;  --- Highlight Line Mode:
 ;;  Toggle: "C-c 4"
+(global-hl-line-mode 1)
 
 (global-set-key (kbd "C-c 4")
                 '(lambda()(interactive)
@@ -101,6 +102,11 @@
 ;; turn on scroll bar
 
 (scroll-bar-mode 1)
+(global-set-key (kbd "<f8>")
+                '(lambda()(interactive)
+                   (scroll-bar-mode 'toggle)
+                   (message "Scroll Bar Toggle")))
+
 
 ;;  --- Cursor
 ;;  Toggle: "C-c 3"
@@ -164,7 +170,7 @@
 
 ;; Menu toggle ON/OFF with <f9> function key
 
-(global-set-key (kbd "<f8>")
+(global-set-key (kbd "<f9>")
                 '(lambda()(interactive)
                    (menu-bar-mode 'toggle)
                    (message "Menu Toggle!")))
@@ -177,7 +183,8 @@
                    (message "Line Numbers Toggle!")))
 
 
-;; toggle full screen Emacs session with <f11> function key
+;; --- Full Screen
+;; Toggle: "f11"
 ;; Covers the entire screen and turns off all menu/sidebar/etc
 ;; and centers text
 ;;
@@ -201,6 +208,8 @@
 
 ;;; --- "Focus Mode" (Fringe-style)
 ;;  Default: Off
+;;  Toggle: "M-f11"
+;;
 ;; This is a great focus mode by Bzg. You can read
 ;; his blog post here:
 ;;
@@ -228,7 +237,7 @@
 (bzg-big-fringe-mode -1)
 
 ;; Toggle Fringe-Focus: "f9" function key
-(global-set-key (kbd "<f9>")
+(global-set-key (kbd "M-<f11>")
                 '(lambda()(interactive)
                    (bzg-big-fringe-mode 'toggle)
                    (message "Big Fringe!")))

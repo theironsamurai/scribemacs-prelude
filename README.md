@@ -132,8 +132,9 @@ Among the themes auto-installed are the classic "solarized" themes, sublime-text
 ## New Key Bindings
 
 - ```<f11>``` = Full-screen toggle
-- ```<f9>```  = Focus-mode toggle, ala Writeroom/Darkroom/Pyroom
-- ```<f8>```  = Menu-bar-mode toggle (default: on)
+- ```M-<f11>```  = Focus-mode toggle, ala Writeroom/Darkroom/Pyroom
+- ```<f9>```  = Menu-bar-mode toggle (default: on)
+- ```<f8>```  = Scroll-bar toggle (default: on)
 - ```<f7>```  = Line numbers toggle, linum-mode (defualt: off)
 - ```C-c 1``` = Word-count, displays in mini-buffer
 - ```C-c 2``` = Spell check toggle, Flyspell (defualt: on)
