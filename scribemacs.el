@@ -33,18 +33,18 @@
 ;;; Code:
 
 ;; first, load in dependencies
-                                        ; (add-to-list 'load-path' "/scribe-config/")
-                                        ; (load "scribe-automargin.el")
-                                        ; (load "scribe-prelude.el")
-                                        ; (load "scribe-package-loader.el")
+; (add-to-list 'load-path' "/scribe-config/")
+; (load "scribe-automargin.el")
+; (load "scribe-prelude.el")
+; (load "scribe-package-loader.el")
 
 ;;  Set Margins
 
-                                        ; (setq-default left-margin-width 5)
+; (setq-default left-margin-width 5)
 
 ;;  Remove Fringe
 
-(set-fringe-mode 15)
+
 
 ;;  Visual Line Mode default in all text buffers
 
@@ -61,6 +61,9 @@
 ;;  Turn on Blinking Cursor
 
 (blink-cursor-mode 1)
+
+;; Use a minimal cursor
+(setq-default cursor-type 'hbar)
 
 ;;  CUA default - cut/copy/paste like "normal"
 
@@ -89,7 +92,7 @@
 
 (global-set-key (kbd "<f7>")
                 '(lambda()(interactive)
-                   (linum-mode 'toggle)
+                   (global-linum-mode 'toggle)
                    (message "Line Numbers Toggle!")))
 
 
@@ -111,31 +114,57 @@
 (global-set-key [f11] 'toggle-fullscreen)
 
 
-;;; --- Toggle Focus Mode.
 
 
-(defun toggle-minimal-mode (fs)
-  (interactive "P")
-  (defun fullscreen-margins nil
-    (if (and (window-full-width-p) (not (minibufferp)))
-        (set-window-margins nil (/ (- (frame-width) 80) 2) (/ (- (frame-width) 80) 2))
-      (mapcar (lambda (window) (set-window-margins window nil nil)) (window-list))))
+;;; --- "Focus Mode", aka, bzg-big-fringe-mode
+;; This is a great focus mode by Bzg. You can read
+;; his blog post here:
+;;
+;;     http://bzg.fr/emacs-strip-tease.html
+;;
+;; I have made only minor modifications.
 
-  (cond (menu-bar-mode
-         (menu-bar-mode -1) (tool-bar-mode -1) (scroll-bar-mode 1)
-;         (set-frame-height nil (+ (frame-height) 4))
-         (if fs (progn (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-                                              '(1 "_NET_WM_STATE_FULLSCREEN" 0))
-                       (add-hook 'window-configuration-change-hook 'fullscreen-margins))))
-        (t (menu-bar-mode 1) (tool-bar-mode -1) (scroll-bar-mode 1)
-           (when (frame-parameter nil 'fullscreen)
-             (remove-hook 'window-configuration-change-hook 'fullscreen-margins)
-             (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-                                    '(0 "_NET_WM_STATE_FULLSCREEN" 0))
-             (set-window-buffer (selected-window) (current-buffer)))
-           (set-frame-width nil (assoc-default 'width default-frame-alist)))))
+;;; --- BEGIN BZG's WORK
 
-(global-set-key [f9] 'toggle-minimal-mode)
+(defvar bzg-big-fringe-mode nil)
+(define-minor-mode bzg-big-fringe-mode
+  "Minor mode to use big fringe in the current buffer."
+  :init-value nil
+  :global t
+  :variable bzg-big-fringe-mode
+  :group 'editing-basics
+  (if (not bzg-big-fringe-mode)
+      (set-fringe-style nil)
+    (set-fringe-mode
+     (/ (- (frame-pixel-width)
+           (* 85 (frame-char-width)))
+        2))))
+
+;; Now activate this global minor mode
+(bzg-big-fringe-mode 1)
+
+(global-set-key (kbd "<f9>")
+                '(lambda()(interactive)
+                   (bzg-big-fringe-mode 'toggle)
+                   (message "Big Fringe!")))
+
+
+;; To activate the fringe by default and deactivate it when windows
+;; are split vertically, uncomment this:
+ (add-hook 'window-configuration-change-hook
+           (lambda ()
+             (if (delq nil
+                       (let ((fw (frame-width)))
+                         (mapcar (lambda(w) (< (window-width w) fw))
+                                 (window-list))))
+                 (bzg-big-fringe-mode 0)
+               (bzg-big-fringe-mode 1))))
+
+;; To get rid of the indicators in the fringe
+; (mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
+;        fringe-bitmaps)
+
+;;; --- END bzg's work
 
 
 ;;; --- More Key Bindings
