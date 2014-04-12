@@ -1,6 +1,5 @@
 # Scribemacs: Emacs 4 Writers
 
-
 **Scribemacs** is an Emacs "overlay" that makes default the things a *non-fiction prose-writer* might find essential and/or nice.
 
 Everything from default word-wrapping and spell check, to a full-screen, "no distractions" mode, to a nicer looking cursor. (See below for details.)
@@ -9,7 +8,9 @@ It is *highly* modular. Each piece can be toggled ON/OFF with its own key bindin
 
 So while Scribemacs is quite oppinionated to suit my personal tastes as a writer, you can use it as a base and make it your own quite easily.
 
-## Word(s) of Warning: Expectations & Who This Is For
+## Preliminaries
+
+### Word(s) of Warning: Expectations & Who This Is For
 
 The *entire purpose* of Scribemacs is to make Emacs kick more ass for a *Writer*... not necessarily a programmer.
 
@@ -27,7 +28,7 @@ Again, everything is "toggle-able". So, of course, you can be a programmer and u
 
 *Scribemacs is very much still in the beta-testing phase. But, totally usable. I use it every day* :-)
 
-## Dependencies: Melpa
+### Dependencies: Melpa
 
 Obviously, you need Emacs.
 
@@ -51,7 +52,7 @@ These include:
 
 As well as a few themes (see below).
 
-## (Optional) Emacs Prelude
+### (Optional) Emacs Prelude
 
 I *strongly* favor using [Emacs Prelude]() alongside Scribemacs.
 
@@ -65,9 +66,10 @@ However, my own purpose in using Emacs -- of all things -- to write prose in is 
 
 Prelude is a meta-Emacs distribution that takes the idea of power and runs with it, all while "modernizing" it a bit.
 
-If you go this route -- Emacs + Prelude + Scribemacs = Awesome -- then, you might also like to include my *Prelude-Plus-Pack* and *Prelude-Plugin-Loader* which I use to take it even further.
+If you go this route -- Emacs + Prelude + Scribemacs = Awesome -- then, you might also like to include my [Prelude-Plus-Pack](https://github.com/theironsamurai/prelude-plus-pack) and *Prelude-Plugin-Loader* which I use to take it even further.
 
 These last two are being built to compliment -- rather than clash with -- Scribemacs.
+
 
 ## Installation
 
@@ -94,9 +96,10 @@ git clone https://github.com/theironsamurai/scribemacs.git
 
 If you are a Prelude user as I am, then you can "install" this as a *Prelude plugin*.
 
-Start by installing my [Prelude-Plugin-Installer](), then follow the instructions.
+Start by installing my [Prelude-Plugin-Loader](https://github.com/theironsamurai/prelude-plugin-loader), then follow the instructions.
 
-You may want to also install my [Prelude-Plus-Pack]() which makes this environment even more friendly -- not just for a prose-writer, but also for Clojure.
+You may want to also install my [Prelude-Plus-Pack](https://github.com/theironsamurai/prelude-plus-pack) which makes this environment even more friendly -- not just for a prose-writer, but also for Clojure.
+
 
 ## Features & Non-Features
 
