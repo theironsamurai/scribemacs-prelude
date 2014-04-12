@@ -1,9 +1,9 @@
 # Scribemacs: Emacs 4 Writers
 
 
-**Scribemacs** is an Emacs "overlay" that makes default the things a non-fiction prose-writer would find essential and/or nice -- assuming this "avatar" is me :-)
+**Scribemacs** is an Emacs "overlay" that makes default the things a *non-fiction prose-writer* might find essential and/or nice.
 
-Everything from default word-wrapping and spell check, to a full-screen, "no distractions" mode, to smart auto-complete, to a nicer looking cursor. (See below for details.)
+Everything from default word-wrapping and spell check, to a full-screen, "no distractions" mode, to a nicer looking cursor. (See below for details.)
 
 It is *highly* modular. Each piece can be toggled ON/OFF with its own key binding -- in the spirit of Emacs.
 
@@ -21,7 +21,9 @@ The defaults it chooses are geared towards the various 'text-modes' in Emacs (ma
 
 It also assumes you are like me. Afterall, I created this to make MY Emacs act the way I want it to. If you have different interests, goals, tastes, then maybe you'll want to alter the defaults and/or use something else entirely.
 
-Again, everything is "toggle-able". So, of course, you can be a programmer and use this if you like the defaults. But, my "avatar" user is a writer who is quite geeky, rather than a programmer who is also a writer.
+Again, everything is "toggle-able". So, of course, you can be a programmer and use this if you like the defaults.
+
+**My "avatar" user is a writer who is quite geeky, rather than a programmer who is also a writer.**
 
 *Scribemacs is very much still in the beta-testing phase. But, totally usable. I use it every day* :-)
 
@@ -29,7 +31,7 @@ Again, everything is "toggle-able". So, of course, you can be a programmer and u
 
 Obviously, you need Emacs.
 
-You'll also need the *Melpa Package Repository* installed. If you don't already, add this to your init file, or whereever you store this.
+You'll also need the *Melpa Package Repository* installed. If you don't already, add this to your init file, or whereever you store your customizations.
 
 ~~~~
 (when (>= emacs-major-version 24)
@@ -43,11 +45,9 @@ Once you've got that, all other dependencies will be checked by Scribemacs, and 
 
 These include:
 
-- Flyspell
+- Flyspell (spell-checker)
 - Dired-details
 - Dired-details+
-- Smex
-- Auto-complete-mode
 
 As well as a few themes (see below).
 
@@ -60,6 +60,14 @@ That will automatically install a ton of extra, hyper-useful, features that you'
 It's what I use, so that clearly influences the direction I am taking the Scribemacs project -- as a "meta" distribrution.
 
 That said, my goal is to make sure Scribemacs is totally independent, and will work fine on a "vanilla", default, Emacs so that any prose writer can use it without needing to get all fancy.
+
+However, my own purpose in using Emacs -- of all things -- to write prose in is so that I have a *powerful* editor that can do all kinds of crazy shit standard "prose editors" simply can't do.
+
+Prelude is a meta-Emacs distribution that takes the idea of power and runs with it, all while "modernizing" it a bit.
+
+If you go this route -- Emacs + Prelude + Scribemacs = Awesome -- then, you might also like to include my *Prelude-Plus-Pack* and *Prelude-Plugin-Loader* which I use to take it even further.
+
+These last two are being built to compliment -- rather than clash with -- Scribemacs.
 
 ## Installation
 
@@ -129,7 +137,9 @@ Among the themes auto-installed are the classic "solarized" themes, sublime-text
 - ```C-c 3``` = Cursor-style toggle (default: hbar; option: box)
 - ```C-c 4``` = Highlight-line-mode toggle (default: on)
 - ```C-c 5``` = Word-wrap toggle, vl-mode (default: on *globally*)
-- ```C-c 6``` = Auto-complete-mode (default: on)
+- ```C-=```   = Text-scale increase (Control and equals/plus key)
+- ```C--```   = Text-scale decrease (Control and minus key)
 
+## Licence: GPLv2
 
-
+Copyright (c) 2014, Nick Horton

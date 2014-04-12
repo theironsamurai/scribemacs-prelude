@@ -32,17 +32,20 @@
 
 ;;; Code:
 
-;; --- Add Melpa Repository
-
-
 
 ;; --- Dependencies
+;;
+;;  !important!
+;;  These require that you have the "Melpa"
+;;  package repository set up for use.
+;;  See the README for help.
+;;  Trust me, you want it anyway :-)
+
 
 (defvar sweet-packages '(dired-details
                          dired-details+
                          smex
                          flyspell
-                         auto-complete
                          ))
 
 (dolist (p sweet-packages)
@@ -50,7 +53,6 @@
     (package-install p)))
 
 (require 'flyspell)
-(require 'auto-complete)
 (require 'dired-details)
 (require 'dired-details+)
 (require 'ido)
@@ -69,22 +71,12 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
+;; --- Set Theme
+;; Default: Gandalf
+;; You can change this via "M-x customize-themes"
 
+(load-theme 'gandalf t)
 
-;; --- Auto-complete-mode
-;; Toggle: "C-c 6"
-;;
-;; dirty fix for having AC everywhere
-;; stolen from Emacs Wiki 
-
-(define-globalized-minor-mode real-global-auto-complete-mode
-  auto-complete-mode (lambda ()
-                       (if (not (minibufferp (current-buffer)))
-                           (auto-complete-mode 1))
-                       ))
-(real-global-auto-complete-mode t)
-
-(global-set-key (kbd "C-c 6") 'real-global-auto-complete-mode)
 
 
 ;;  --- Word Wrap
@@ -202,10 +194,13 @@
 
 (global-set-key [f11] 'toggle-fullscreen)
 
+;;;  -------------------------------------------------------------
+;;;  ---------------------FOCUS MODE------------------------------
+;;;  -------------------------------------------------------------
 
 
-
-;;; --- "Focus Mode", aka, bzg-big-fringe-mode
+;;; --- "Focus Mode" (Fringe-style)
+;;  Default: Off
 ;; This is a great focus mode by Bzg. You can read
 ;; his blog post here:
 ;;
@@ -229,9 +224,10 @@
            (* 85 (frame-char-width)))
         2))))
 
-;; Now activate this global minor mode
-(bzg-big-fringe-mode 1)
+;; Default is OFF
+(bzg-big-fringe-mode -1)
 
+;; Toggle Fringe-Focus: "f9" function key
 (global-set-key (kbd "<f9>")
                 '(lambda()(interactive)
                    (bzg-big-fringe-mode 'toggle)
@@ -249,9 +245,10 @@
                  (bzg-big-fringe-mode 0)
                (bzg-big-fringe-mode 1))))
 
-;; To get rid of the indicators in the fringe
+;; To get rid of the indicators in the fringe, uncomment this:
 ; (mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
 ;        fringe-bitmaps)
+
 
 ;;; --- END bzg's work
 
@@ -259,7 +256,7 @@
 ;;; --- More Key Bindings
 
 
-;; text scale increase/decrease
+;;  ---text scale increase/decrease
 (define-key global-map (kbd "C-=") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
