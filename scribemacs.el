@@ -38,14 +38,6 @@
 ; (load "scribe-prelude.el")
 ; (load "scribe-package-loader.el")
 
-;;  Set Margins
-
-; (setq-default left-margin-width 5)
-
-;;  Remove Fringe
-
-
-
 ;;  Visual Line Mode default in all text buffers
 
 (add-hook 'text-mode-hook 'visual-line-mode)
@@ -88,7 +80,7 @@
                    (menu-bar-mode 'toggle)
                    (message "Menu Toggle!")))
 
-;; Line numbers on left toggle ON/OFF with C-c f9
+;; Line numbers on left toggle ON/OFF with <f7>
 
 (global-set-key (kbd "<f7>")
                 '(lambda()(interactive)
