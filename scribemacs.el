@@ -32,42 +32,139 @@
 
 ;;; Code:
 
-;; first, load in dependencies
-; (add-to-list 'load-path' "/scribe-config/")
-; (load "scribe-automargin.el")
-; (load "scribe-prelude.el")
-; (load "scribe-package-loader.el")
+;; --- Add Melpa Repository
 
-;;  Visual Line Mode default in all text buffers
 
-(add-hook 'text-mode-hook 'visual-line-mode)
 
-;;  Turn off hl-line-mode (it highlights white-space when on)
+;; --- Dependencies
 
-(global-hl-line-mode -1)
+(defvar sweet-packages '(dired-details
+                         dired-details+
+                         smex
+                         flyspell
+                         auto-complete
+                         ))
+
+(dolist (p sweet-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
+
+(require 'flyspell)
+(require 'auto-complete)
+(require 'dired-details)
+(require 'dired-details+)
+(require 'ido)
+(require 'smex)
+
+
+;; --- Theme Loader
+
+(defvar sweet-themes '(gandalf-theme
+                       cyberpunk-theme
+                       sublime-themes
+                       solarized-theme
+                         ))
+
+(dolist (p sweet-themes)
+  (when (not (package-installed-p p))
+    (package-install p)))
+
+
+
+;; --- Auto-complete-mode
+;; Toggle: "C-c 6"
+;;
+;; dirty fix for having AC everywhere
+;; stolen from Emacs Wiki 
+
+(define-globalized-minor-mode real-global-auto-complete-mode
+  auto-complete-mode (lambda ()
+                       (if (not (minibufferp (current-buffer)))
+                           (auto-complete-mode 1))
+                       ))
+(real-global-auto-complete-mode t)
+
+(global-set-key (kbd "C-c 6") 'real-global-auto-complete-mode)
+
+
+;;  --- Word Wrap
+;;  Toggle: "C-c 5"
+;;
+;;  Default is ON in ALL buffers!
+
+(global-visual-line-mode 1)
+(global-set-key (kbd "C-c 5")
+                '(lambda()(interactive)
+                   (visual-line-mode 'toggle)
+                   (message "Word Wrap!")))
+
+;;  --- Highlight Line Mode:
+;;  Toggle: "C-c 4"
+
+(global-set-key (kbd "C-c 4")
+                '(lambda()(interactive)
+                   (hl-line-mode 'toggle)
+                   (message "Highlight current line!")))
 
 ;; turn on scroll bar
 
 (scroll-bar-mode 1)
 
-;;  Turn on Blinking Cursor
+;;  --- Cursor
+;;  Toggle: "C-c 3"
+;;
+;;  Switch between a thin horizontal line
+;;  and a block-style cursor.
+;;  Default is thin-line
 
 (blink-cursor-mode 1)
 
-;; Use a minimal cursor
 (setq-default cursor-type 'hbar)
 
-;;  CUA default - cut/copy/paste like "normal"
+(add-hook 'text-mode-hook '(setq cursor-type 'hbar))
+
+(global-set-key (kbd "C-c 3")
+                '(lambda()(interactive)
+                   (if (eq cursor-type 'box)
+                       (setq cursor-type 'hbar)
+                     (setq cursor-type 'box))))
+
+;;  --- Spell Check
+;;  Toggle: "C-c 2"
+;;
+;;  Checks spelling while you type and highlights
+;;  the mistakes.
+
+(flyspell-mode 1)
+(global-set-key (kbd "C-c 2")
+                '(lambda()(interactive)
+                   (flyspell-mode 'toggle)
+                   (message "Spell Check!")))
+
+
+;;  --- CUA: copy, paste
+;;  Making Emacs fit in a little better.
+;;  "C-c" is cut, "C-v" is paste.
+;;  Also, makes it work with other programs
+;;  like your web browser, for copying between
+;;  them.
+;;
+;;  Warning: it IS a little wonky because
+;;  of how Emacs deals with it's "killing".
 
 (cua-mode 1)
 (setq x-select-enable-clipboard t)
 (setq x-select-enable-primary t)
 
-;;  Word Count (on demand!)
+
+;;  --- Word Count
+;;  Toggle: "C-c 1"
 
 (defalias 'word-count 'count-words)
+(global-set-key (kbd "C-c 1") 'word-count)
 
-;; require ido
+
+;;  --- require ido
 
 (require 'ido)
 
@@ -166,6 +263,7 @@
 (define-key global-map (kbd "C-=") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
+;;; ---------------------------------------------------------
 
 (provide 'scribemacs)
 
