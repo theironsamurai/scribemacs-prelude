@@ -21,12 +21,12 @@
 
 ;; Prelude Disable: White Space Highlighting
 
-;; (setq prelude-whitespace nil)
+(setq prelude-whitespace nil)
 
 
 ;; Prelude Disable: Arrow Keys Off
 
-;; (setq guru-warn-only t)
+(setq guru-warn-only t)
 
 
 ;;; scribe-prelude.el ends here

@@ -27,28 +27,32 @@
 ;;         Do that for each one.
 ;;; --------------------------------------------------------------------
 
-(defun toggle-scribe-focus-mode (fs)
-  (interactive "P")
-  (defun fullscreen-margins nil
-    (if (and (window-full-width-p) (not (minibufferp)))
-        (set-window-margins nil (/ (- (frame-width) 80) 2) (/ (- (frame-width) 80) 2))
-      (mapcar (lambda (window) (set-window-margins window nil nil)) (window-list))))
 
-  (cond (menu-bar-mode
-         (menu-bar-mode -1) (tool-bar-mode -1) (scroll-bar-mode 1)
-         (if fs (progn (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-                                              '(1 "_NET_WM_STATE_FULLSCREEN" 0))
-                       (add-hook 'window-configuration-change-hook 'fullscreen-margins))))
-        (t (menu-bar-mode 1) (tool-bar-mode -1) (scroll-bar-mode 1)
-           (when (frame-parameter nil 'fullscreen)
-             (remove-hook 'window-configuration-change-hook 'fullscreen-margins)
-             (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-                                    '(0 "_NET_WM_STATE_FULLSCREEN" 0))
-             (set-window-buffer (selected-window) (current-buffer)))
-           (set-frame-width nil (assoc-default 'width default-frame-alist)))))
+;; Scribe "helper" mode: turn on menu, scroll-bar, line numbers
+;; toggle ON/OFF with <f9> function key
 
-(global-set-key [f11] 'toggle-scribe-focus-mode)
+(global-set-key (kbd "<f9>") ; F7 - Activate auto-fill-mode, flyspell-mode and abbrev-mode
+                '(lambda()(interactive)
+                   (menu-bar-mode 'toggle)
+                   (scroll-bar-mode 'toggle)
+                   (linum-mode 'toggle)
+                   (message "Toggle menu scroll line numbers")))
 
+;; toggle full screen Emacs session with <f11> function key
+;; Covers the entire screen and turns off all menu/sidebar/etc
+;; and centers text
+;;
+;; WARNING: doesn't allow you to center text when Scribe "helper"
+;; is active. AKA, when you toggle ON <f9> it gets screwy. 
 
+(defun toggle-fullscreen () ;; thanks to Ivan Kanis
+  "Toggle full screen on X11"
+  (interactive)
+  (when (eq window-system 'x)
+    (set-frame-parameter
+     nil 'fullscreen
+     (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
+
+(global-set-key [f11] 'toggle-fullscreen)
 
 ;; scribe-focus-mode ends here

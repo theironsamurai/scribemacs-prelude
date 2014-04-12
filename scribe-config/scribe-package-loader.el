@@ -1,4 +1,4 @@
-;;; scribe-package-loader.el -- loads packages
+;;; scribe-package-loader.el -- loads & requires dependencies
 
 ;;; commentary:
 
@@ -13,5 +13,10 @@
 (dolist (p sweet-packages)
   (when (not (package-installed-p p))
     (package-install p)))
+
+(require 'dired-details)
+(require 'dired-details+)
+(require 'ido)
+(require 'smex)
 
 ;;; scribe-package-loader.el ends here
