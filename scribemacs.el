@@ -90,8 +90,6 @@
 ;;  --- Ispell Word
 ;;  Key: "<C-tab>"
 (global-set-key (kbd "<C-tab>") 'ispell-word)
-
-
 ;;  --- Highlight Line Mode:
 ;;  Toggle: "C-c 4"
 (global-hl-line-mode -1)
@@ -156,6 +154,16 @@
 (global-set-key (kbd "C-c 1") 'word-count)
 
 
+(defun toggle-line-spacing ()
+  "Toggle line spacing between no extra space to extra half line height."
+  (interactive)
+  (if (eq line-spacing nil)
+      (setq-default line-spacing 0.5) ; add 0.5 height between lines
+    (setq-default line-spacing nil)   ; no extra heigh between lines
+    )
+  (redraw-display))
+
+(global-set-key (kbd "M-1") 'toggle-line-spacing)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; --- Menu
