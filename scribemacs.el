@@ -9,14 +9,9 @@
 ;;  License: GPLv2
 ;;
 ;;; This is not a part of GNU Emacs
-;;
+
 ;;; Commentary:
-;;
-;;
-;;   This is a relatively simple minor mode for Emacs
-;;   designed with prose-writing in mind.
-;;
-;;
+
 ;;; ----------------- GOAL --------------------------------
 ;;      1. Make prose writing as elegant, simple, and fun
 ;;         as it is in Pyroom, Writeroom, or WriteMonkey...
@@ -31,7 +26,6 @@
 ;;; -------------------------------------------------------
 
 ;;; Code:
-
 
 ;; --- Dependencies
 ;;
@@ -61,6 +55,7 @@
 (require 'tabbar)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; --- Theme Loader
 
 (defvar sweet-themes '(gandalf-theme
@@ -90,6 +85,7 @@
 ;;  --- Ispell Word
 ;;  Key: "<C-tab>"
 (global-set-key (kbd "<C-tab>") 'ispell-word)
+
 ;;  --- Highlight Line Mode:
 ;;  Toggle: "C-c 4"
 (global-hl-line-mode -1)
@@ -154,16 +150,23 @@
 (global-set-key (kbd "C-c 1") 'word-count)
 
 
+;;  --- Double Space
+;;  Toggle: "M-2"
+;;  Default: Off
+
 (defun toggle-line-spacing ()
   "Toggle line spacing between no extra space to extra half line height."
   (interactive)
   (if (eq line-spacing nil)
-      (setq-default line-spacing 0.5) ; add 0.5 height between lines
+      (setq-default line-spacing 0.4) ; add 0.5 height between lines
     (setq-default line-spacing nil)   ; no extra heigh between lines
     )
   (redraw-display))
 
-(global-set-key (kbd "M-1") 'toggle-line-spacing)
+(global-set-key (kbd "M-2") 'toggle-line-spacing)
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; --- Menu
@@ -276,14 +279,12 @@
 ;;; --- END bzg's work
 
 
-;;; --- More Key Bindings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 ;;  ---text scale increase/decrease
 (define-key global-map (kbd "C-=") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; --- Tab Bar Mode
 ;; Toggle: "M-f7"
