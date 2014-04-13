@@ -1,187 +1,70 @@
-;;; scribemacs.el -- Emacs minor mode for Prose Writers!
+;;; scribemacs.el --- Emacs for writers!
 ;;
-;;  Copyright (c) 2014, Nick Horton
+;; Copyright (c) 2014 Nick Horton
 ;;
-;;  Aka: The Iron Samurai
-;;  Main Blog: TheIronSamurai.com
-;;  Geek Blog: SapienGames.com
-;;
-;;  License: GPLv2
-;;
-;;; This is not a part of GNU Emacs
+;; Author: Nick Horton
+;; URL: http://sapiengames.com
+;; Version: 0.2.0.0
+;; Keywords: awesome, scribe, emacs, samurai
+
+;; This file is not part of GNU Emacs.
 
 ;;; Commentary:
 
-;;; ----------------- GOAL --------------------------------
-;;      1. Make prose writing as elegant, simple, and fun
-;;         as it is in Pyroom, Writeroom, or WriteMonkey...
+;; Modular defaults to make your writing life easier!
+
+;;; License:
+
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License
+;; as published by the Free Software Foundation; either version 3
+;; of the License, or (at your option) any later version.
 ;;
-;;      2. With the added beauty of Sublime-Text-like themes,
-;;         and their syntax highlighting for markdown,
-;;         latex, etc...
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+;; GNU General Public License for more details.
 ;;
-;;      3. And the shear power of Emacs!
-;;
-;;    That's 3 for the price of one!
-;;; -------------------------------------------------------
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING. If not, write to the
+;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
 ;;; Code:
 
-;; --- Dependencies
+;;;  --- (OPTIONAL) SPELL CHECK -----------------------------------
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;;  !important!
-;;  These require that you have the "Melpa"
-;;  package repository set up for use.
-;;  See the README for help.
-;;  Trust me, you want it anyway :-)
-
-
-(defvar sweet-packages '(dired-details
-                         dired-details+
-                         smex
-                         flyspell
-                         tabbar
-                         ))
-
-(dolist (p sweet-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
-
-(require 'flyspell)
-(require 'dired-details)
-(require 'dired-details+)
-(require 'ido)
-(require 'smex)
-(require 'tabbar)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; --- Theme Loader
-
-(defvar sweet-themes '(gandalf-theme
-                       cyberpunk-theme
-                       sublime-themes
-                       solarized-theme
-                         ))
-
-(dolist (p sweet-themes)
-  (when (not (package-installed-p p))
-    (package-install p)))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;  --- Word Wrap
-;;  Toggle: "C-c 5"
 ;;
-;;  Default is ON in ALL buffers!
-
-(global-visual-line-mode 1)
-(global-set-key (kbd "C-c 5")
-                '(lambda()(interactive)
-                   (visual-line-mode 'toggle)
-                   (message "Word Wrap!")))
-
-;;  --- Ispell Word
-;;  Key: "<C-tab>"
-(global-set-key (kbd "<C-tab>") 'ispell-word)
-
-;;  --- Highlight Line Mode:
-;;  Toggle: "C-c 4"
-(global-hl-line-mode -1)
-
-(global-set-key (kbd "C-c 4")
-                '(lambda()(interactive)
-                   (hl-line-mode 'toggle)
-                   (message "Highlight current line!")))
-
-
-;;  --- Cursor
-;;  Toggle: "C-c 3"
+;;  You must have "Flyspell" installed!
 ;;
-;;  Switch between a thin horizontal line
-;;  and a block-style cursor.
-;;  Default is thin-line
+;;  Then, come back and uncomment the following lines :-)
+;;  
+;;  This will give you 2 new key bindings, and turn Spell check on
+;;  by default.
+;;  You can turn auto-spell-check OFF with "M-2" and "C-tab" will
+;;  check the spelling of the word your cursor is on. :-)
 
-(blink-cursor-mode 1)
+;(global-set-key (kbd "<C-tab>") 'ispell-word)
+;(flyspell-mode 1)
+;(global-set-key (kbd "M-2")
+;                '(lambda()(interactive)
+;                   (flyspell-mode 'toggle)
+;                   (message "Spell Check!")))
 
-(setq-default cursor-type 'hbar)
 
-(add-hook 'text-mode-hook '(setq cursor-type 'hbar))
+;;;  --- DISPLAY SETTINGS -----------------------------------------
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(global-set-key (kbd "C-c 3")
+
+;; --- Line Numbers (f7)
+
+(global-set-key (kbd "<f7>")
                 '(lambda()(interactive)
-                   (if (eq cursor-type 'box)
-                       (setq cursor-type 'hbar)
-                     (setq cursor-type 'box))))
+                   (global-linum-mode 'toggle)
+                   (message "Line Numbers Toggle!")))
 
-;;  --- Spell Check
-;;  Toggle: "C-c 2"
-;;
-;;  Checks spelling while you type and highlights
-;;  the mistakes.
-
-(flyspell-mode 1)
-(global-set-key (kbd "C-c 2")
-                '(lambda()(interactive)
-                   (flyspell-mode 'toggle)
-                   (message "Spell Check!")))
-
-
-;;  --- CUA: copy, paste
-;;  Making Emacs fit in a little better.
-;;  "C-c" is cut, "C-v" is paste.
-;;  Also, makes it work with other programs
-;;  like your web browser, for copying between
-;;  them.
-;;
-;;  Warning: it IS a little wonky because
-;;  of how Emacs deals with it's "killing".
-
-(cua-mode 1)
-(setq x-select-enable-clipboard t)
-(setq x-select-enable-primary t)
-
-
-;;  --- Word Count
-;;  Toggle: "C-c 1"
-
-(defalias 'word-count 'count-words)
-(global-set-key (kbd "C-c 1") 'word-count)
-
-
-;;  --- Double Space
-;;  Toggle: "M-2"
-;;  Default: Off
-
-(defun toggle-line-spacing ()
-  "Toggle line spacing between no extra space to extra half line height."
-  (interactive)
-  (if (eq line-spacing nil)
-      (setq-default line-spacing 0.4) ; add 0.5 height between lines
-    (setq-default line-spacing nil)   ; no extra heigh between lines
-    )
-  (redraw-display))
-
-(global-set-key (kbd "M-2") 'toggle-line-spacing)
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; --- Menu
-;; Toggle: "f9"
-
-
-(global-set-key (kbd "<f9>")
-                '(lambda()(interactive)
-                   (menu-bar-mode 'toggle)
-                   (message "Menu Toggle!")))
-
-
-;;  --- Scroll Bar
-;;  Toggle: "f8"
-;;  Default: Off
+;;  --- Scroll Bar (f8)
 
 (scroll-bar-mode -1)
 (global-set-key (kbd "<f8>")
@@ -189,24 +72,22 @@
                    (scroll-bar-mode 'toggle)
                    (message "Scroll Bar Toggle")))
 
+;; --- Menu (f9)
 
-;; --- Line Numbers
-;; Toggle: "f7"
-;; Default: Off
-
-(global-set-key (kbd "<f7>")
+(global-set-key (kbd "<f9>")
                 '(lambda()(interactive)
-                   (global-linum-mode 'toggle)
-                   (message "Line Numbers Toggle!")))
+                   (menu-bar-mode 'toggle)
+                   (message "Menu Toggle!")))
+
+;;  --- Tool Bar (M-f9)
+
+(global-set-key (kbd "M-<f9>")
+                '(lambda()(interactive)
+                   (tool-bar-mode 'toggle)
+                   (message "Menu Toggle!")))
 
 
-;; --- Full Screen
-;; Toggle: "f11"
-;; Covers the entire screen and turns off all menu/sidebar/etc
-;; and centers text
-;;
-;; WARNING: doesn't allow you to center text when Scribe "helper"
-;; is active. AKA, when you toggle ON <f9> it gets screwy.
+;;  --- Full Screen (f11)
 
 (defun toggle-fullscreen () ;; thanks to Ivan Kanis
   "Toggle full screen on X11."
@@ -218,15 +99,9 @@
 
 (global-set-key [f11] 'toggle-fullscreen)
 
-;;;  -------------------------------------------------------------
-;;;  ---------------------FOCUS MODE------------------------------
-;;;  -------------------------------------------------------------
 
+;;  --- Fringe Focus Mode (M-f11)
 
-;;; --- "Focus Mode" (Fringe-style)
-;;  Default: Off
-;;  Toggle: "M-f11"
-;;
 ;; This is a great focus mode by Bzg. You can read
 ;; his blog post here:
 ;;
@@ -253,7 +128,7 @@
 ;; Default is OFF
 (bzg-big-fringe-mode -1)
 
-;; Toggle Fringe-Focus: "f9" function key
+;; Toggle Fringe-Focus: "M-f11" function key
 (global-set-key (kbd "M-<f11>")
                 '(lambda()(interactive)
                    (bzg-big-fringe-mode 'toggle)
@@ -279,25 +154,77 @@
 ;;; --- END bzg's work
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;;  ---text scale increase/decrease
+
+;;;  --- TEXT SETTINGS --------------------------------------------
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;  --- Defaults For Modernization
+;;  Includes CUA mode, usuability tweaks, etc
+(require 'ido)
+(cua-mode 1)
+(setq x-select-enable-clipboard t)
+(setq x-select-enable-primary t)
+(ido-mode t)
+(delete-selection-mode t)
+(transient-mark-mode t)
+
+
+;;  ---text scale increase/decrease (C +/=)(C -)
+
 (define-key global-map (kbd "C-=") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
-;; --- Tab Bar Mode
-;; Toggle: "M-f7"
 
-(tabbar-mode -1)
+;;  --- Word Count (C-c 1)
 
-(global-set-key (kbd "M-<f7>")
+(defalias 'word-count 'count-words)
+(global-set-key (kbd "C-c 1") 'word-count)
+
+
+;;  --- Double Space (C-c 2)
+
+(defun toggle-line-spacing ()
+  "Toggle line spacing between no extra space to extra half line height."
+  (interactive)
+  (if (eq line-spacing nil)
+      (setq-default line-spacing 0.4) ; add 0.4 height between lines
+    (setq-default line-spacing nil)   ; no extra heigh between lines
+    )
+  (redraw-display))
+
+(global-set-key (kbd "C-c 2") 'toggle-line-spacing)
+
+
+;;  --- Cursor (C-c 3)
+
+(blink-cursor-mode 1)
+(setq-default cursor-type 'hbar)
+(global-set-key (kbd "C-c 3")
                 '(lambda()(interactive)
-                   (tabbar-mode 'toggle)
-                   (message "Tabbar mode")))
+                   (if (eq cursor-type 'box)
+                       (setq cursor-type 'hbar)
+                     (setq cursor-type 'box))))
 
 
-;;; ---------------------------------------------------------
+;;  --- Highlight Line Mode (C-c 4)
+
+(global-hl-line-mode -1)
+
+(global-set-key (kbd "C-c 4")
+                '(lambda()(interactive)
+                   (hl-line-mode 'toggle)
+                   (message "Highlight current line!")))
+
+
+;;  --- Word Wrap (C-c 5)
+
+(global-visual-line-mode 1)
+(global-set-key (kbd "C-c 5")
+                '(lambda()(interactive)
+                   (visual-line-mode 'toggle)
+                   (message "Word Wrap!")))
 
 (provide 'scribemacs)
 
