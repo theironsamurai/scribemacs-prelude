@@ -46,6 +46,7 @@
                          dired-details+
                          smex
                          flyspell
+                         tabbar
                          ))
 
 (dolist (p sweet-packages)
@@ -57,8 +58,9 @@
 (require 'dired-details+)
 (require 'ido)
 (require 'smex)
+(require 'tabbar)
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; --- Theme Loader
 
 (defvar sweet-themes '(gandalf-theme
@@ -71,13 +73,8 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
-;; --- Set Theme
-;; Default: Gandalf
-;; You can change this via "M-x customize-themes"
 
-(load-theme 'gandalf t)
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;  --- Word Wrap
 ;;  Toggle: "C-c 5"
@@ -90,22 +87,19 @@
                    (visual-line-mode 'toggle)
                    (message "Word Wrap!")))
 
+;;  --- Ispell Word
+;;  Key: "<C-tab>"
+(global-set-key (kbd "<C-tab>") 'ispell-word)
+
+
 ;;  --- Highlight Line Mode:
 ;;  Toggle: "C-c 4"
-(global-hl-line-mode 1)
+(global-hl-line-mode -1)
 
 (global-set-key (kbd "C-c 4")
                 '(lambda()(interactive)
                    (hl-line-mode 'toggle)
                    (message "Highlight current line!")))
-
-;; turn on scroll bar
-
-(scroll-bar-mode 1)
-(global-set-key (kbd "<f8>")
-                '(lambda()(interactive)
-                   (scroll-bar-mode 'toggle)
-                   (message "Scroll Bar Toggle")))
 
 
 ;;  --- Cursor
@@ -162,20 +156,32 @@
 (global-set-key (kbd "C-c 1") 'word-count)
 
 
-;;  --- require ido
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'ido)
+;; --- Menu
+;; Toggle: "f9"
 
-;;; ---------------- Toggling ON/OFF -----------------------------
-
-;; Menu toggle ON/OFF with <f9> function key
 
 (global-set-key (kbd "<f9>")
                 '(lambda()(interactive)
                    (menu-bar-mode 'toggle)
                    (message "Menu Toggle!")))
 
-;; Line numbers on left toggle ON/OFF with <f7>
+
+;;  --- Scroll Bar
+;;  Toggle: "f8"
+;;  Default: Off
+
+(scroll-bar-mode -1)
+(global-set-key (kbd "<f8>")
+                '(lambda()(interactive)
+                   (scroll-bar-mode 'toggle)
+                   (message "Scroll Bar Toggle")))
+
+
+;; --- Line Numbers
+;; Toggle: "f7"
+;; Default: Off
 
 (global-set-key (kbd "<f7>")
                 '(lambda()(interactive)
@@ -268,6 +274,19 @@
 ;;  ---text scale increase/decrease
 (define-key global-map (kbd "C-=") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; --- Tab Bar Mode
+;; Toggle: "M-f7"
+
+(tabbar-mode -1)
+
+(global-set-key (kbd "M-<f7>")
+                '(lambda()(interactive)
+                   (tabbar-mode 'toggle)
+                   (message "Tabbar mode")))
+
 
 ;;; ---------------------------------------------------------
 
