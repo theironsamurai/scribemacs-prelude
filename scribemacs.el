@@ -170,6 +170,10 @@
 (delete-selection-mode t)
 (transient-mark-mode t)
 
+;;  --- Undo Tree (C-x u)
+
+; (use-package undo-tree
+; :init (global-undo-tree-mode))
 
 ;;  ---text scale increase/decrease (C +/=)(C -)
 
