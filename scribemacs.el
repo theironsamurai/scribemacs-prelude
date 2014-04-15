@@ -57,12 +57,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+
 ;; --- Line Numbers (f7)
 
 (global-set-key (kbd "<f7>")
                 '(lambda()(interactive)
                    (global-linum-mode 'toggle)
                    (message "Line Numbers Toggle!")))
+
+;; Add vertical line to right of line-numbers
+(setq linum-format "%6d \u2502\ ")
+
 
 ;;  --- Scroll Bar (f8)
 
