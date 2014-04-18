@@ -45,21 +45,32 @@ If you are a Prelude user (or would like to be), and you'd like to take things a
 
 ## New Key Bindings
 
+**Environment**
+
 - ```<f11>``` = Full-screen toggle
 - ```M-<f11>```  = Focus-mode toggle, ala Writeroom/Darkroom/Pyroom (see below)
 - ```<f9>```  = Menu-bar-mode toggle (default: on)
 - ```M-<f9>``` = Tool-bar toggle
 - ```<f8>```  = Scroll-bar toggle (default: on)
 - ```<f7>```  = Line numbers toggle, linum-mode (defualt: off)
+- ```C +```   = Text-scale increase (Control and equals/plus key)
+- ```C -```   = Text-scale decrease (Control and minus key)
+
+**Text Style**
+
 - ```C-c 1``` = Word-count, displays in mini-buffer
 - ```C-c 2```   = Double Space toggle (default: Off)
 - ```C-c 3``` = Cursor-style toggle (default: hbar; option: box)
 - ```C-c 4``` = Highlight-line-mode toggle (default: on)
 - ```C-c 5``` = Word-wrap toggle, vl-mode (default: on *globally*)
-- ```C +```   = Text-scale increase (Control and equals/plus key)
-- ```C -```   = Text-scale decrease (Control and minus key)
+
+**Editing**
+
+- ```C ;```   = Kill word backwards (deletes the word you just wrote)
 
 If you're new to Emacs, "C" is the "Control key", and "M" is the "alt" key. You'll be using these often, lol.
+
+NOTE: The "kill word backwards" command also copies it to the clipboard, so if you did it by mistake, you can just paste it right back.
 
 ## "Focus" Mode
 

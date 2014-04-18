@@ -235,6 +235,11 @@
                    (visual-line-mode 'toggle)
                    (message "Word Wrap!")))
 
+;;  --- Backward Kill Word (C-;)
+
+(global-set-key (kbd "C-;") 'backward-kill-word)
+
+
 (provide 'scribemacs)
 
 ;;; scribemacs.el ends here
