@@ -53,8 +53,55 @@
 ;                   (message "Spell Check!")))
 
 
+;; --- Miscellaneous settings
+
+
 ;;;  --- DISPLAY SETTINGS -----------------------------------------
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;; -- FUNCTION: My Toggle Window Split
+;;
+;; hat tip: Stecker Halter
+;; http://steckerhalter.co.vu/steckemacs.html
+
+(defun my-toggle-window-split ()
+  "Window splitting vertically or horizontally by toggle."
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
+
+
+;; -- WINDOW SPLIT KEY BINDINGS
+
+(global-set-key (kbd "C-9") (lambda () (interactive) (select-window (previous-window))))
+(global-set-key (kbd "C-0") (lambda () (interactive) (select-window (next-window))))
+(global-set-key (kbd "<f2>") 'split-window-vertically)
+(global-set-key (kbd "<f3>") 'split-window-horizontally)
+(global-set-key (kbd "<f4>") 'my-toggle-window-split)
+(global-set-key (kbd "<f5>") 'delete-other-windows)
+(global-set-key (kbd "<f6>") 'delete-window)
+
 
 
 
@@ -66,7 +113,7 @@
                    (message "Line Numbers Toggle!")))
 
 ;; Add vertical line to right of line-numbers
-(setq linum-format "%6d \u2502\ ")
+(setq linum-format "%6d ")
 
 
 ;;  --- Scroll Bar (f8)
@@ -117,49 +164,57 @@
 ;;; --- BEGIN BZG's WORK
 
 (defvar bzg-big-fringe-mode nil)
+
 (define-minor-mode bzg-big-fringe-mode
-  "Minor mode to use big fringe in the current buffer."
-  :init-value nil
-  :global t
-  :variable bzg-big-fringe-mode
-  :group 'editing-basics
-  (if (not bzg-big-fringe-mode)
-      (set-fringe-style nil)
-    (set-fringe-mode
-     (/ (- (frame-pixel-width)
-           (* 85 (frame-char-width)))
-        2))))
+   "Minor mode to use big fringe in the current buffer."
+   :init-value nil
+   :global t
+   :variable bzg-big-fringe-mode
+   :group 'editing-basics
+   (if (not bzg-big-fringe-mode)
+       (set-fringe-style nil)
+     (set-fringe-mode
+      (/ (- (frame-pixel-width)
+            (* 75 (frame-char-width)))
+         2))))
 
 ;; Default is OFF
-(bzg-big-fringe-mode -1)
+; (bzg-big-fringe-mode -1)
 
 ;; Toggle Fringe-Focus: "M-f11" function key
 (global-set-key (kbd "M-<f11>")
                 '(lambda()(interactive)
-                   (bzg-big-fringe-mode 'toggle)
-                   (message "Big Fringe!")))
+                    (bzg-big-fringe-mode 'toggle)
+                    (message "Big Fringe!")))
 
 
 ;; To activate the fringe by default and deactivate it when windows
 ;; are split vertically, uncomment this:
- (add-hook 'window-configuration-change-hook
-           (lambda ()
-             (if (delq nil
-                       (let ((fw (frame-width)))
-                         (mapcar (lambda(w) (< (window-width w) fw))
-                                 (window-list))))
-                 (bzg-big-fringe-mode 0)
-               (bzg-big-fringe-mode 1))))
+(add-hook 'window-configuration-change-hook
+          (lambda ()
+            (if (delq nil
+                      (let ((fw (frame-width)))
+                        (mapcar (lambda(w) (< (window-width w) fw))
+                                (window-list))))
+                (bzg-big-fringe-mode 0)
+              (bzg-big-fringe-mode 1))))
 
 ;; To get rid of the indicators in the fringe, uncomment this:
-; (mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
-;        fringe-bitmaps)
-
+(mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
+       fringe-bitmaps)
 
 ;;; --- END bzg's work
 
 
 
+
+;;  -- WRITE ROOM MODE
+
+; (defun fullscreen-margins nil
+;  "Set full screen margins."
+;  (if (and (window-full-width-p) (not (minibufferp)))
+;      (set-window-margins nil (/ (- (frame-width) 80) 2) (/ (- (frame-width) 80) 2))
+;    (mapcar (lambda (window) (set-window-margins window nil nil)) (window-list))))
 
 
 ;;;  --- TEXT SETTINGS --------------------------------------------
@@ -209,7 +264,6 @@
 ;;  --- Cursor (C-c 3)
 
 (blink-cursor-mode 1)
-(setq-default cursor-type 'hbar)
 (global-set-key (kbd "C-c 3")
                 '(lambda()(interactive)
                    (if (eq cursor-type 'box)
@@ -235,9 +289,9 @@
                    (visual-line-mode 'toggle)
                    (message "Word Wrap!")))
 
-;;  --- Backward Kill Word (C-;)
+;;  --- Backward Kill Word (C-e)
 
-(global-set-key (kbd "C-;") 'backward-kill-word)
+(global-set-key (kbd "C-e") 'backward-kill-word)
 
 
 (provide 'scribemacs)
