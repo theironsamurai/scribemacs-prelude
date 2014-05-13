@@ -40,14 +40,6 @@
 ;; --- Make smex = C-t
 (global-set-key (kbd "C-t") 'smex)
 
-;;  --- Spell Check
-
-(flyspell-mode 1)
-(global-set-key (kbd "<C-tab>") 'ispell-word)
-(global-set-key (kbd "M-2")
-               '(lambda()(interactive)
-                  (flyspell-mode 'toggle)
-                  (message "Spell Check!")))
 
 
 ;;;  --- SPELL CHECK -----------------------------------
@@ -61,7 +53,7 @@
 (global-set-key (kbd "M-2")
                 '(lambda()(interactive)
                    (flyspell-mode 'toggle)
-                   (message "Spell Check!")))
+                   (message "Spell Check Toggle")))
 
 
 ;; --- Miscellaneous settings
@@ -163,67 +155,10 @@
 (global-set-key [f11] 'toggle-fullscreen)
 
 
-;;  --- Fringe Focus Mode (M-f11)
-
-;; This is a great focus mode by Bzg. You can read
-;; his blog post here:
-;;
-;;     http://bzg.fr/emacs-strip-tease.html
-;;
-;; I have made only minor modifications.
-
-;;; --- BEGIN BZG's WORK
-
-; #| (defvar bzg-big-fringe-mode nil)
-
-; (define-minor-mode bzg-big-fringe-mode
-;    "Minor mode to use big fringe in the current buffer."
-;    :init-value nil
-;    :global t
-;    :variable bzg-big-fringe-mode
-;    :group 'editing-basics
-;    (if (not bzg-big-fringe-mode)
-;        (set-fringe-style nil)
-;      (set-fringe-mode
-;       (/ (- (frame-pixel-width)
-;             (* 75 (frame-char-width)))
-;          2))))
-
-; ;; Default is OFF
-; ; (bzg-big-fringe-mode -1)
-
-; ;; Toggle Fringe-Focus: "M-f11" function key
-; (global-set-key (kbd "M-<f11>")
-;                 '(lambda()(interactive)
-;                     (bzg-big-fringe-mode 'toggle)
-;                     (message "Big Fringe!")))
-
-
-; ;; To activate the fringe by default and deactivate it when windows
-; ;; are split vertically, uncomment this:
-; (add-hook 'window-configuration-change-hook
-;           (lambda ()
-;             (if (delq nil
-;                       (let ((fw (frame-width)))
-;                         (mapcar (lambda(w) (< (window-width w) fw))
-;                                 (window-list))))
-;                 (bzg-big-fringe-mode 0)
-;               (bzg-big-fringe-mode 1))))
-
-; ;; To get rid of the indicators in the fringe, uncomment this:
-; (mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
-;        fringe-bitmaps)
-
-; ;;; --- END bzg's work 
-
-
-
-;;;  --- Center-Mode ---------------------------------------------
+;;;  --- Center-Mode (M-f11) -------------------------------------
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; by Pavel Panchekha
-
-;; Author:Pavel Panchekha
 
 (provide 'center-text)
 
@@ -346,7 +281,7 @@ MAX-CHARS characters or fewer characters wide or less"
              (right-fringe (max 0 (+ (cdr current-fringe) deficit-margin))))
         (set-window-fringes nil left-fringe right-fringe)))))
 
-(global-set-key (kbd "C-c <f11>")
+(global-set-key (kbd "M-<f11>")
                 '(lambda()(interactive)
                    (center-text-mode 'toggle)
                    (message "Center Text Mode Toggle")))
@@ -429,6 +364,6 @@ MAX-CHARS characters or fewer characters wide or less"
 (global-set-key (kbd "C-e") 'backward-kill-word)
 
 
-(provide 'scribemacs)
+(provide 'scribemacs-settings.el)
 
 ;;; scribemacs-settings.el ends here
