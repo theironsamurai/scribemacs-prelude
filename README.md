@@ -1,2 +1,5 @@
-This is my Emacs configuration in Org-Babel literal programming
-style. [Read the emacs.org file, which explains everything](./emacs.org).
+Scribemacs is a work in progress.
+
+Intent: Emacs for prose writing, research, and literate programming.
+
+Stay tuned.
