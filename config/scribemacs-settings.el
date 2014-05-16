@@ -142,17 +142,17 @@
                    (message "Menu Toggle!")))
 
 
-;;  --- Full Screen (f11)
+; ;;  --- Full Screen (f11)
 
-(defun toggle-fullscreen () ;; thanks to Ivan Kanis
-  "Toggle full screen on X11."
-  (interactive)
-  (when (eq window-system 'x)
-    (set-frame-parameter
-     nil 'fullscreen
-     (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
+; (defun toggle-fullscreen () ;; thanks to Ivan Kanis
+;   "Toggle full screen on X11."
+;   (interactive)
+;   (when (eq window-system 'x)
+;     (set-frame-parameter
+;      nil 'fullscreen
+;      (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
 
-(global-set-key [f11] 'toggle-fullscreen)
+; (global-set-key [f11] 'toggle-fullscreen)
 
 
 ;;;  --- Center-Mode (M-f11) -------------------------------------
