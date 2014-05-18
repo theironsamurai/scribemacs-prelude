@@ -22,14 +22,16 @@
 ;; dirty fix for having AC everywhere
 ;; stolen from Emacs Wiki.
 
-(define-globalized-minor-mode real-global-auto-complete-mode
-  auto-complete-mode (lambda ()
-                       (if (not (minibufferp (current-buffer)))
-                           (auto-complete-mode 1))
-                       ))
+; (define-globalized-minor-mode real-global-auto-complete-mode
+;   auto-complete-mode (lambda ()
+;                        (if (not (minibufferp (current-buffer)))
+;                            (auto-complete-mode 1))
+;                        ))
 
-(real-global-auto-complete-mode -1)
-(global-set-key (kbd "M-4") 'real-global-auto-complete-mode)
+; (real-global-auto-complete-mode -1)
+; (global-set-key (kbd "M-4") 'real-global-auto-complete-mode)
+
+(global-set-key (kbd "M-4") 'company-mode)
 
 
 ;;  --- Smartparens-strict-mode
@@ -50,10 +52,12 @@
 
 (global-set-key (kbd "<C-tab>") 'ispell-word)
 (flyspell-mode 1)
-(global-set-key (kbd "M-2")
-                '(lambda()(interactive)
-                   (flyspell-mode 'toggle)
-                   (message "Spell Check Toggle")))
+; (global-set-key (kbd "M-2")
+;                 '(lambda()(interactive)
+;                    (flyspell-mode 'toggle)
+;                    (message "Spell Check Toggle")))
+
+(global-set-key (kbd "M-2") 'flyspell-mode)
 
 
 ;; --- Miscellaneous settings
