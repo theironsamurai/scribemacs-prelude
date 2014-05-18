@@ -26,6 +26,22 @@
 (setq guru-warn-only t)
 
 
+;;; ----------------------------------------------
+;;; ---------------CORE SHIT----------------------
+;;; ----------------------------------------------
+
+
+;; UTF-8 EVERYWHERE!
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+;; Asking for "yes or no" is silly in the day and
+;; age of text-speak
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+
+
 ;;; -------------------------------------------
 ;;; ----------------PACKAGES-------------------
 ;;; -------------------------------------------
@@ -59,10 +75,11 @@
 
 (add-to-list 'load-path "plugins/scribemacs/config/")
 (load "scribemacs-settings.el")
-;; (load "scribemacs-tabbar.el")
+(load "scribemacs-editing.el")
 
 (add-to-list 'load-path "plugins/scribemacs/lang-packs/")
 (load "scribemacs-clojure.el")
+
 
 
 
