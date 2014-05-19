@@ -48,7 +48,7 @@ In addition to giving you back your CUA keys ```C-c,C-v,C-z```, Scribemacs also 
 ### Editing & Writerly things
 
 Keybindings        | Description
---------------------------------------------------------------------------
+-------------------|-------------------------------------------------------
 <kbd>M-1</kbd>     | Word count (and character, etc)
 <kbd>M-2</kbd>     | Speck Check (as you type) on/off
 <kbd>M-3</kbd>     | Double Space on/off
@@ -60,8 +60,8 @@ Keybindings        | Description
 
 ### Sneaky Tricks
 
-Keybindings        | Description
---------------------------------------------------------------------------
+ Keybindings        | Description
+:-------------------|:-------------------------------------------------------
 <kbd>C-TAB</kbd>   | Check spelling of word at point (cursor)
 <kbd>C-e</kbd>     | Backwards kill word
 <kbd>C-"="</kbd>   | Increase text size *(control + equals sign)*
@@ -70,8 +70,8 @@ Keybindings        | Description
 
 ### GUI Manipulation
 
-Keybindings        | Description
-------------------------------------------------------------------------
+ Keybindings        | Description
+--------------------|----------------------------------------------------
 <kbd>C-9</kbd>     | Select previous window
 <kbd>C-0</kbd>     | Select next window
 <kbd>f2</kbd>      | Split window vertically (top/bottom)
@@ -91,7 +91,7 @@ Keybindings        | Description
 These are particularly nice for Math and Haskell -- thanks @Bodil!
 
 Keybindings        | Description
---------------------------------------------------------------------------
+-------------------|-------------------------------------------------------
 <kbd>M-l</kbd>     | Lambda λ
 <kbd>M-f</kbd>     | Function ƒ
 <kbd>M--</kbd>     | Arrow →
