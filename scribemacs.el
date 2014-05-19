@@ -31,8 +31,10 @@
 ;;; ----------------------------------------------
 
 (ido-mode t)
+(scroll-bar-mode 1)
 (cua-mode 1)
 (blink-cursor-mode 1)
+(setq cursor-type 'hbar)
 (global-hl-line-mode -1)
 (global-visual-line-mode 1)
 (flyspell-mode 1)
@@ -106,7 +108,8 @@
                             sublime-themes
                     ))
 
-
+(disable-theme 'zenburn)
+(load-theme 'cyberpunk t)
 ;;; --------------------------------------------------
 ;;; ------------------USER INTERFACE------------------
 ;;; --------------------------------------------------
@@ -289,7 +292,8 @@ MAX-CHARS characters or fewer characters wide or less"
 ;;; -- Word Count alias
 (defalias 'word-count 'count-words)
 
-
+;; -- Smart Parens ON in text modes
+(add-hook 'text-mode-hook 'smartparens-strict-mode)
 
 ;;; --------------------------------------------------
 ;;; ---------------LANG :: CLOJURE--------------------
@@ -312,26 +316,27 @@ MAX-CHARS characters or fewer characters wide or less"
 
 ;;; -- EDITING
 
-
-;;; -- (M-'s)
-(global-set-key (kbd "M-4") 'company-mode)
-(global-set-key (kbd "M-3") 'smartparens-strict-mode)
-(global-set-key (kbd "M-2") 'flyspell-mode)
-
-(global-set-key (kbd "<C-tab>") 'ispell-word)
-(global-set-key (kbd "C-e") 'backward-kill-word)
-
-;;; -- (C-c's)
-(global-set-key (kbd "C-c 5") 'visual-line-mode)
-(global-set-key (kbd "C-c 4") 'hl-line-mode)
-(global-set-key (kbd "C-c 3")
+;;; -- 
+(global-set-key (kbd "C-c 4") 'visual-line-mode)
+(global-set-key (kbd "C-c 3") 'hl-line-mode)
+(global-set-key (kbd "C-c 2") 'smartparens-strict-mode)
+(global-set-key (kbd "C-c 1")
                 '(lambda()(interactive)
                    (if (eq cursor-type 'box)
                        (setq cursor-type 'hbar)
                      (setq cursor-type 'box))))
-(global-set-key (kbd "C-c 2") 'toggle-line-spacing)
-(global-set-key (kbd "C-c 1") 'word-count)                     
 
+;; -- Commonly used writer-shit
+(global-set-key (kbd "M-4") 'company-mode)
+(global-set-key (kbd "M-3") 'toggle-line-spacing)
+(global-set-key (kbd "M-2") 'flyspell-mode)
+(global-set-key (kbd "M-1") 'word-count)                     
+
+;; -- Check word spelling at point
+(global-set-key (kbd "<C-tab>") 'ispell-word)
+
+;; -- Backward kill word
+(global-set-key (kbd "C-e") 'backward-kill-word)
 
 ;;  ---Smex
 (global-set-key (kbd "C-t") 'smex)
@@ -361,47 +366,16 @@ MAX-CHARS characters or fewer characters wide or less"
 (global-set-key (kbd "<f5>") 'delete-other-windows)
 (global-set-key (kbd "<f6>") 'delete-window)
 
+;; -- GUI shit
 
-;; --- Line Numbers (f7)
-
-(global-set-key (kbd "<f7>")
-                '(lambda()(interactive)
-                   (global-linum-mode 'toggle)
-                   (message "Line Numbers Toggle!")))
+(global-set-key (kbd "<f7>") 'global-linum-mode)
+(global-set-key (kbd "<f8>") 'scroll-bar-mode)
+(global-set-key (kbd "<f9>") 'menu-bar-mode)
+(global-set-key (kbd "M-<f9>") 'tool-bar-mode)
+(global-set-key (kbd "M-<f11>") 'center-text-mode)
 
 ;; Add vertical line to right of line-numbers
 (setq linum-format "%6d ")
-
-
-;;  --- Scroll Bar (f8)
-
-(scroll-bar-mode -1)
-(global-set-key (kbd "<f8>")
-                '(lambda()(interactive)
-                   (scroll-bar-mode 'toggle)
-                   (message "Scroll Bar Toggle")))
-
-;; --- Menu (f9)
-
-(global-set-key (kbd "<f9>")
-                '(lambda()(interactive)
-                   (menu-bar-mode 'toggle)
-                   (message "Menu Toggle!")))
-
-;;  --- Tool Bar (M-f9)
-
-(global-set-key (kbd "M-<f9>")
-                '(lambda()(interactive)
-                   (tool-bar-mode 'toggle)
-                   (message "Menu Toggle!")))
-
-
-(global-set-key (kbd "M-<f11>")
-                '(lambda()(interactive)
-                   (center-text-mode 'toggle)
-                   (message "Center Text Mode Toggle")))
-
-
 
 ;; END
 
