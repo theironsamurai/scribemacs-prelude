@@ -45,6 +45,14 @@ Restart Emacs. It will begin auto-loading all the new shit. Done!
 
 In addition to giving you back your CUA keys ```C-c,C-v,C-z```, Scribemacs also gives you a ton of new fancy-pantsy key bindings (and associated functionalities) to make writing and manipulating text even easier.
 
+### Navigation
+
+Keybindings        | Description
+-------------------|-------------------------------------------------------
+<kbd>C-u</kbd>     | Page Up
+<kbd>C-i</kbd>     | Page Down
+
+
 ### Editing & Writerly things
 
 Keybindings        | Description
@@ -53,7 +61,7 @@ Keybindings        | Description
 <kbd>M-2</kbd>     | Speck Check (as you type) on/off
 <kbd>M-3</kbd>     | Double Space on/off
 <kbd>M-4</kbd>     | Auto-complete (via Company-mode) on/off
-<kbd>C-c 1</kbd>   | Set cursor type (hbar vs block) toggle *(default is hbar)*
+<kbd>C-c 1</kbd>   | Set cursor type (bar vs hbar) toggle *(default is bar)*
 <kbd>C-c 2</kbd>   | Smart Parenthesis Strict mode *(default: on)*
 <kbd>C-c 3</kbd>   | Highlight line mode *(default: off)*
 <kbd>C-c 4</kbd>   | Word Wrap (visual-line-mode) - *(default: on)*
