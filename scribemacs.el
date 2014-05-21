@@ -34,7 +34,7 @@
 (scroll-bar-mode 1)
 (cua-mode 1)
 (blink-cursor-mode 1)
-(setq cursor-type 'hbar)
+(setq cursor-type 'bar)
 (global-hl-line-mode -1)
 (global-visual-line-mode 1)
 (flyspell-mode 1)
@@ -118,7 +118,7 @@
 ;; -- FUNCTION: My Toggle Window Split
 ;;
 ;; hat tip: Stecker Halter
-;; http://steckerhalter.co.vu/steckemacs.html
+;; http://steckerhalter.co.vu/steckemacs.HTML
 
 (defun my-toggle-window-split ()
   "Window splitting vertically or horizontally by toggle."
@@ -314,6 +314,11 @@ MAX-CHARS characters or fewer characters wide or less"
 ;;; ---------------KEY BINDINGS-----------------------
 ;;; --------------------------------------------------
 
+;;; -- Movement
+
+(global-set-key (kbd "C-u") 'scroll-down-command)
+(global-set-key (kbd "C-i") 'scroll-up-command)
+
 ;;; -- EDITING
 
 ;;; -- 
@@ -322,9 +327,9 @@ MAX-CHARS characters or fewer characters wide or less"
 (global-set-key (kbd "C-c 2") 'smartparens-strict-mode)
 (global-set-key (kbd "C-c 1")
                 '(lambda()(interactive)
-                   (if (eq cursor-type 'hbar)
-                       (setq cursor-type 'box)
-                     (setq cursor-type 'hbar))))
+                   (if (eq cursor-type 'bar)
+                       (setq cursor-type 'hbar)
+                     (setq cursor-type 'bar))))
 
 ;; -- Commonly used writer-shit
 (global-set-key (kbd "M-4") 'company-mode)
@@ -354,9 +359,7 @@ MAX-CHARS characters or fewer characters wide or less"
 (global-set-key (kbd "M-f") (lambda () (interactive) (insert "\u0192"))) ;function
 (global-set-key (kbd "M--") (lambda () (interactive) (insert "\u2192"))) ;arrow
 
-
-
-;; -- WINDOW SPLIT KEY BINDINGS
+;;; -- WINDOW SPLIT KEY BINDINGS
 
 (global-set-key (kbd "C-9") (lambda () (interactive) (select-window (previous-window))))
 (global-set-key (kbd "C-0") (lambda () (interactive) (select-window (next-window))))
@@ -374,7 +377,8 @@ MAX-CHARS characters or fewer characters wide or less"
 (global-set-key (kbd "M-<f9>") 'tool-bar-mode)
 (global-set-key (kbd "M-<f11>") 'center-text-mode)
 
-;; Add vertical line to right of line-numbers
+;;; Add vertical line to right of line-numbers
+
 (setq linum-format "%6d ")
 
 ;; END
