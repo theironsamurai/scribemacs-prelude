@@ -322,9 +322,9 @@ MAX-CHARS characters or fewer characters wide or less"
 (global-set-key (kbd "C-c 2") 'smartparens-strict-mode)
 (global-set-key (kbd "C-c 1")
                 '(lambda()(interactive)
-                   (if (eq cursor-type 'box)
-                       (setq cursor-type 'hbar)
-                     (setq cursor-type 'box))))
+                   (if (eq cursor-type 'hbar)
+                       (setq cursor-type 'box)
+                     (setq cursor-type 'hbar))))
 
 ;; -- Commonly used writer-shit
 (global-set-key (kbd "M-4") 'company-mode)
