@@ -31,10 +31,10 @@
 ;;; ----------------------------------------------
 
 (ido-mode t)
-(scroll-bar-mode 1)
+(scroll-bar-mode -1)
 (cua-mode 1)
 (blink-cursor-mode 1)
-(setq cursor-type 'bar)
+(setq-default cursor-type 'bar)
 (global-hl-line-mode -1)
 (global-visual-line-mode 1)
 (flyspell-mode 1)
