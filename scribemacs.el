@@ -38,6 +38,8 @@
 (global-hl-line-mode -1)
 (global-visual-line-mode 1)
 (flyspell-mode 1)
+(flycheck-mode -1)
+(setq-default pop-up-frames t)
 (delete-selection-mode t)
 (transient-mark-mode t)
 (setq x-select-enable-clipboard t)
@@ -69,9 +71,8 @@
 
 (prelude-require-packages '(dired-details+
                             smex
-                            auto-complete
-                            tabbar
                             smart-mode-line
+                            pandoc-mode
                          ))
 
 ;; --- Require
@@ -79,7 +80,7 @@
 (require 'smex)
 (require 'dired-details+)
 (require 'ido)
-(require 'auto-complete)
+(require 'pandoc-mode)
 (setq sml/theme 'dark)
 (sml/setup)
 
@@ -109,7 +110,7 @@
                     ))
 
 (disable-theme 'zenburn)
-(load-theme 'cyberpunk t)
+(load-theme 'monokai t)
 ;;; --------------------------------------------------
 ;;; ------------------USER INTERFACE------------------
 ;;; --------------------------------------------------
@@ -309,6 +310,12 @@ MAX-CHARS characters or fewer characters wide or less"
   (nrepl-jack-in nil))
 
 
+;;; --------------------------------------------------
+;;; ---------------- PANDOC MODE ---------------------
+;;; --------------------------------------------------
+
+(add-hook 'text-mode-hook 'turn-on-pandoc)
+(add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
 
 ;;; --------------------------------------------------
 ;;; ---------------KEY BINDINGS-----------------------
