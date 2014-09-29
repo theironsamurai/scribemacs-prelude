@@ -37,15 +37,15 @@
 (setq-default cursor-type 'bar)
 (global-hl-line-mode -1)
 (global-visual-line-mode 1)
-(flyspell-mode 1)
+(flyspell-mode -1)
 (flycheck-mode -1)
-(setq-default pop-up-frames t)
 (delete-selection-mode t)
 (transient-mark-mode t)
 (setq x-select-enable-clipboard t)
 (setq x-select-enable-primary t)
 (savehist-mode t)
 (setq-default save-place-globally t)
+
 
 ;; UTF-8 EVERYWHERE!
 (set-terminal-coding-system 'utf-8)
@@ -56,7 +56,8 @@
 ;; age of text-speak
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-
+;; Add vertical line to right of line-numbers
+(setq linum-format "%d   ")
 
 ;;; -------------------------------------------
 ;;; ----------------PACKAGES-------------------
@@ -73,6 +74,7 @@
                             smex
                             smart-mode-line
                             pandoc-mode
+                            direx
                          ))
 
 ;; --- Require
@@ -81,7 +83,8 @@
 (require 'dired-details+)
 (require 'ido)
 (require 'pandoc-mode)
-(setq sml/theme 'dark)
+(require 'direx)
+;; (setq sml/theme 'dark)
 (sml/setup)
 
 ;;; ------------------------------------------------
@@ -107,10 +110,14 @@
                             soft-stone-theme
                             solarized-theme
                             sublime-themes
+                            base16-theme
+                            ujelly-theme
+                            tangotango-theme
+                            underwater-theme
                     ))
 
 (disable-theme 'zenburn)
-(load-theme 'monokai t)
+; (load-theme 'monokai t)
 ;;; --------------------------------------------------
 ;;; ------------------USER INTERFACE------------------
 ;;; --------------------------------------------------
@@ -178,7 +185,7 @@ width.
   :keymap `((,(kbd "C-x w") . center-text-set-width))
   :after-hook (center-text-mode-helper))
 
-(defcustom center-text-default-width 80
+(defcustom center-text-default-width 60
   "The default width of the text column in center-text-mode"
 
   :type 'integer
@@ -259,7 +266,7 @@ MAX-CHARS characters or fewer characters wide or less"
 
   (while (not (or (= (window-width) max-chars)
                   (and (< (window-width) max-chars)
-                       (= (car (window-fringes)) 0))))
+                       (= (car (window-fringes)) 50))))
     (let ((char-width
            (* (aref (font-info (face-font 'default)) 2) (/ 1.0 12.0) 6.0))
           (current-chars
@@ -271,7 +278,7 @@ MAX-CHARS characters or fewer characters wide or less"
              (deficit-margin (floor (/ excess-width 2)))
              (left-fringe (max 0 (+ (car current-fringe) deficit-margin)))
              (right-fringe (max 0 (+ (cdr current-fringe) deficit-margin))))
-        (set-window-fringes nil left-fringe right-fringe)))))
+        (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)        (set-window-fringes nil left-fringe right-fringe)))))
 
 
 
@@ -338,6 +345,10 @@ MAX-CHARS characters or fewer characters wide or less"
                        (setq cursor-type 'hbar)
                      (setq cursor-type 'bar))))
 
+;; -- Direx
+
+(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
+
 ;; -- Commonly used writer-shit
 (global-set-key (kbd "M-4") 'company-mode)
 (global-set-key (kbd "M-3") 'toggle-line-spacing)
@@ -384,9 +395,6 @@ MAX-CHARS characters or fewer characters wide or less"
 (global-set-key (kbd "M-<f9>") 'tool-bar-mode)
 (global-set-key (kbd "M-<f11>") 'center-text-mode)
 
-;;; Add vertical line to right of line-numbers
-
-(setq linum-format "%6d ")
 
 ;; END
 
