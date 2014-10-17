@@ -117,7 +117,7 @@
                     ))
 
 (disable-theme 'zenburn)
-; (load-theme 'monokai t)
+;;; (load-theme 'cyberpunk t)
 ;;; --------------------------------------------------
 ;;; ------------------USER INTERFACE------------------
 ;;; --------------------------------------------------
@@ -185,7 +185,7 @@ width.
   :keymap `((,(kbd "C-x w") . center-text-set-width))
   :after-hook (center-text-mode-helper))
 
-(defcustom center-text-default-width 60
+(defcustom center-text-default-width 70
   "The default width of the text column in center-text-mode"
 
   :type 'integer
