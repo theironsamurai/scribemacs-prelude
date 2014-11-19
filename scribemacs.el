@@ -79,9 +79,9 @@
 
 ;; --- Require
 ;; Now, these force their use:
-(require 'smex)
+;(require 'smex)
 (require 'dired-details+)
-(require 'ido)
+;(require 'ido)
 (require 'pandoc-mode)
 (require 'direx)
 ;; (setq sml/theme 'dark)
@@ -361,8 +361,8 @@ MAX-CHARS characters or fewer characters wide or less"
 ;; -- Backward kill word
 (global-set-key (kbd "C-e") 'backward-kill-word)
 
-;;  ---Smex
-(global-set-key (kbd "C-t") 'smex)
+;;  ---Use "C-t" for "Helm M-x"
+(global-set-key (kbd "C-t") 'helm-M-x)
 
 ;;  ---text scale increase/decrease (C +/=)(C -)
 (define-key global-map (kbd "C-=") 'text-scale-increase)
