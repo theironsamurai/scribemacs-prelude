@@ -71,7 +71,6 @@
 ;;  additions are quite nice.
 
 (prelude-require-packages '(dired-details+
-                            smex
                             smart-mode-line
                             pandoc-mode
                             direx
@@ -79,9 +78,7 @@
 
 ;; --- Require
 ;; Now, these force their use:
-;(require 'smex)
 (require 'dired-details+)
-;(require 'ido)
 (require 'pandoc-mode)
 (require 'direx)
 ;; (setq sml/theme 'dark)
