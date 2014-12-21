@@ -72,7 +72,7 @@
 
 (prelude-require-packages '(dired-details+
                             smart-mode-line
-                            pandoc-mode
+                                pandoc-mode
                             direx
                          ))
 
@@ -82,7 +82,8 @@
 (require 'pandoc-mode)
 (require 'direx)
 ;; (setq sml/theme 'dark)
-(sml/setup)
+;; (sml/setup)
+(evil-mode -1)
 
 ;;; ------------------------------------------------
 ;;; ------------- THEMES ---------------------------
