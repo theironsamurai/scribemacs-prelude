@@ -112,6 +112,9 @@
                             ujelly-theme
                             tangotango-theme
                             underwater-theme
+                            birds-of-paradise-plus-theme
+                            lush-theme
+                            leuven-theme
                     ))
 
 (disable-theme 'zenburn)
