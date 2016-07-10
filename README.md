@@ -1,5 +1,9 @@
 # Scribemacs - v0.4.1
 
+**DEPRECIATED** in favor of [my new config for Spacemacs](https://github.com/theironsamurai/.spacemacs.d).
+
+## ...
+
 Scribemacs is my personal configuration for [Emacs Prelude](https://github.com/bbatsov/prelude) designed with the following in mind:
 
 1. Prose & Poetry writing
